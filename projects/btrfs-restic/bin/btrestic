@@ -1,0 +1,103 @@
+#!/bin/bash
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LIB_DIR="$SCRIPT_DIR/../lib"
+
+# Define the paths to your scripts
+SERVER_INIT_SCRIPT="$LIB_DIR/server_init.sh"
+RUN_BACKUP_SCRIPT="$LIB_DIR/run_backup.sh"
+
+# Function to display usage information
+usage() {
+    echo "Usage: $0 {init|backup} [options]"
+    echo
+    echo "Commands:"
+    echo "  init               Initialize the server"
+    echo "  backup             Run the backup"
+    echo "    --paths <paths>  Specify the paths to back up"
+    echo "    --tag <tag>      Specify a tag for the backup"
+    echo
+    echo "General Options:"
+    echo "  --help             Display this help message"
+    exit 1
+}
+
+# Check if --help is passed as the first argument
+if [[ "$1" == "--help" ]]; then
+    usage
+fi
+
+# Ensure at least one argument is provided
+if [ $# -lt 1 ]; then
+    usage
+fi
+
+# Parse the main command
+COMMAND=$1
+shift
+
+case $COMMAND in
+    init)
+        # Ensure no additional arguments are provided
+        if [ $# -gt 0 ]; then
+            echo "Error: 'init' command does not accept any options"
+            usage
+        fi
+        # Call the server_init.sh script
+        $SERVER_INIT_SCRIPT
+        ;;
+    backup)
+        # Initialize optional arguments
+        PATHS=""
+        TAG=""
+        
+        # Parse optional arguments
+        while [[ $# -gt 0 ]]; do
+            echo "Parsing argument: $1"  # Debugging output
+            case $1 in
+                --paths)
+                    if [[ -z $2 || $2 == --* ]]; then
+                        echo "Error: --paths requires a value"
+                        usage
+                    fi
+                    PATHS=$2
+                    shift 2
+                    ;;
+                --tag)
+                    if [[ -z $2 || $2 == --* ]]; then
+                        echo "Error: --tag requires a value"
+                        usage
+                    fi
+                    TAG=$2
+                    shift 2
+                    ;;
+                --help)
+                    usage
+                    ;;
+                *)
+                    echo "Unknown option: $1"
+                    usage
+                    ;;
+            esac
+        done
+        
+        # Debugging output to verify variables
+        echo "PATHS: $PATHS"
+        echo "TAG: $TAG"
+        
+        # Construct the command to run run_backup.sh with optional arguments
+        CMD="$RUN_BACKUP_SCRIPT"
+        [ -n "$PATHS" ] && CMD="$CMD --paths \"$PATHS\""
+        [ -n "$TAG" ] && CMD="$CMD --tag \"$TAG\""
+        
+        # Debugging output
+        echo "Executing command: $CMD"
+        
+        # Execute the command
+        eval $CMD
+        ;;
+    *)
+        echo "Unknown command: $COMMAND"
+        usage
+        ;;
+esac

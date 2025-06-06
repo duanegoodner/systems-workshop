@@ -1,0 +1,10 @@
+*.lst
+*.sln
+*.vcxproj
+*.exe
+
+lib/*
+!lib/.gitkeep
+
+bin/*
+!bin/.gitkeep

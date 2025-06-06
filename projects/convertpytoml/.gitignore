@@ -1,0 +1,13 @@
+# Byte-compiled / cached files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# VSCode
+.vscode/
+
+# PyCharm / IntelliJ
+.idea/
+*.iml
+
+data/converted_toml_files/
