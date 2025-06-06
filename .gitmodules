@@ -1,0 +1,12 @@
+[submodule "assembly-io"]
+	path = assembly-io
+	url = git@github.com:duanegoodner/assembly-io.git
+[submodule "smallsh"]
+	path = smallsh
+	url = git@github.com:duanegoodner/smallsh.git
+[submodule "pygetfacl"]
+	path = pygetfacl
+	url = git@github.com:duanegoodner/pygetfacl.git
+[submodule "btrfs-restic"]
+	path = btrfs-restic
+	url = git@github.com:duanegoodner/btrfs-restic.git
