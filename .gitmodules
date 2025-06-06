@@ -10,3 +10,6 @@
 [submodule "btrfs-restic"]
 	path = btrfs-restic
 	url = git@github.com:duanegoodner/btrfs-restic.git
+[submodule "convertpytoml"]
+	path = convertpytoml
+	url = git@github.com:duanegoodner/convertpytoml.git
