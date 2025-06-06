@@ -2,6 +2,8 @@
 
 This repo gathers smaller-scale tools and demos related to systems programming and infrastructure. Topics include low-level I/O, process and signal management, access control, backup automation, and environment tooling.
 
+All included projects are tracked as Git submodules and live inside the `projects/` directory. This allows each tool to remain independently versioned while making them easy to explore as a group. See below for cloning instructions if you're unfamiliar with Git submodules.
+
 ---
 
 ## 📦 Included Projects
@@ -34,6 +36,6 @@ git submodule update --init --recursive
 ## 🧩 Contributing
 This is a personal collection of exploratory systems tools and demos. Feel free to fork, explore, and adapt individual components to your needs. If you have ideas for new additions or enhancements, open an issue or PR in the relevant submodule.
 
-## 📜 License
+## ⚖️ License
 
 Each submodule includes its own license file, which governs usage of that component. Please consult individual repos for terms.
